@@ -1,10 +1,10 @@
-// Mock in-memory database
-const appointments = [];
+const mongoose = require('mongoose');
 
-exports.create = (phoneNumber, clinic, date) => {
-  appointments.push({ phoneNumber, clinic, date });
-};
+const appointmentSchema = new mongoose.Schema({
+  phone_number: { type: String, required: true },
+  clinic: { type: String, required: true },
+  date: { type: String, required: true },
+  created_at: { type: Date, default: Date.now }
+});
 
-exports.getByPhone = (phoneNumber) => {
-  return appointments.find((a) => a.phoneNumber === phoneNumber);
-};
+module.exports = mongoose.model('Appointment', appointmentSchema);
